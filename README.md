@@ -5,7 +5,7 @@ Work for compilers discipline, With the use of antlr to build a simplified pytho
 - [x] control command
 - [x] Types and Operators
 - [x] Identifiers
-- [ ] Functions
+- [x] Functions
 - [ ] Main Program
 - [ ] Variables and Constants
 
