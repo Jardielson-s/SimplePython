@@ -4,7 +4,7 @@ Work for compilers discipline, With the use of antlr to build a simplified pytho
 ## Implemented Structures
 - [x] control command
 - [x] Types and Operators
-- [ ] Identifiers
+- [x] Identifiers
 - [ ] Functions
 - [ ] Main Program
 - [ ] Variables and Constants
