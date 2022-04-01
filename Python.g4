@@ -6,6 +6,7 @@ prog: code | line+;
 code:
     laco_repeticao
     | condicionais
+    | functions
     | EOF;
 
 laco_repeticao:
@@ -23,11 +24,17 @@ condicionais:
             (NullSpaces)* (Declaracao | laco_repeticao)+ (NullSpaces)*
          '}'
         ;
+functions:
+          'def' (NullSpaces)* Tipo (NullSpaces)+ Identifier (NullSpaces)* '(' (NullSpaces)* lista_parametros* (NullSpaces)* ')' (NullSpaces)* ':' (NullSpaces)*
+                (NullSpaces)* (Declaracao | laco_repeticao)+ (NullSpaces)*
+                (NullSpaces)* 'return' (NullSpaces)* Declaracao (NullSpaces)* ';'
+          '}';
 
 
 operacao: 'not' | '-' | 'and' | 'or' | '+' | '-' | '+' | '*' | '/' | '=='
           | '!=' | '>=' | '<=' | '>' | '<';
 
+lista_parametros: Identifier | Identifier (NullSpaces)* ',' (NullSpaces)* lista_parametros;
 lines: line+
     ;
 line: expr NEWLINE
@@ -48,6 +55,7 @@ factor returns [int val]
 NUM: [0-9]+ ;
 NEWLINE: '\r'?'\n' ;
 WS   : [\n\t]+ -> skip;
+Tipo: ' void' | 'int' | 'string' | 'boolean';
 Declaracao: 'here;' ;
 NullSpaces: ' ';
 Identifier: [a-zA-Z]+[0-9]*;
