@@ -5,6 +5,7 @@ prog: code;
 
 code:
     laco_repeticao
+    | condicionais
     | EOF;
 
 laco_repeticao:
@@ -12,12 +13,16 @@ laco_repeticao:
                  (NullSpaces)* (Declaracao | laco_repeticao)+ (NullSpaces)*
      '}'
      |
-     'while'(NullSpaces)+ Identifier (NullSpaces)*  operacao (NullSpaces)* Identifier (NullSpaces)*  (NullSpaces)*':' (NullSpaces)*
+     'while'(NullSpaces)+ Identifier (NullSpaces)*  operacao (NullSpaces)* Identifier (NullSpaces)*':' (NullSpaces)*
                (NullSpaces)* (Declaracao | laco_repeticao)+ (NullSpaces)*
       '}'
      |
      WS;
-
+condicionais:
+        'if' (NullSpaces)* Identifier (NullSpaces)*  operacao (NullSpaces)* Identifier (NullSpaces)*':'(NullSpaces)*
+            (NullSpaces)* (Declaracao | laco_repeticao)+ (NullSpaces)*
+         '}'
+        ;
 
 
 operacao: '==';
