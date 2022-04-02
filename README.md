@@ -7,7 +7,7 @@ Work for compilers discipline, With the use of antlr to build a simplified pytho
 - [x] Identifiers
 - [x] Functions
 - [ ] Main Program
-- [ ] Variables and Constants
+- [X] Variables and Constants
 
 
 ## Exemples
