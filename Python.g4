@@ -8,6 +8,8 @@ code:
     | condicionais
     | functions
     | variavel
+    | main
+    |functions_native
     | EOF;
 
 laco_repeticao:
@@ -40,6 +42,16 @@ variavel: Tipo (NullSpaces)* Identifier (NullSpaces)* ';'
           | Tipo (NullSpaces)* Identifier (NullSpaces)* ',' (NullSpaces)* variavel
           | Tipo (NullSpaces)* Identifier (NullSpaces)* operacao (NullSpaces)* (Identifier | Number) (NullSpaces)* ',' variavel
           |(NullSpaces)* ;
+main:
+    'main' (NullSpaces)* '(' (NullSpaces)* ')' (NullSpaces)* ':'  (NullSpaces)*
+            (NullSpaces)* (Declaracao | laco_repeticao)+ (NullSpaces)*
+    '}';
+functions_native:
+                Identifier (NullSpaces)* operacao (NullSpaces)* 'input()' (NullSpaces)* ';'
+                | 'print' (NullSpaces)* '"' (Number | Identifier | NumberPreviousLetter) (NullSpaces)* '"' (NullSpaces)* ';'
+                | 'print' (NullSpaces)* '"' (Number | Identifier | NumberPreviousLetter) (NullSpaces)*',' functions_native
+                | 'print' (NullSpaces)* (Number | Identifier ) (NullSpaces)* ';'
+                | 'print' (NullSpaces)* '"' (Number | Identifier | NumberPreviousLetter)  (NullSpaces)*  operacao (NullSpaces)* (Number | Identifier | NumberPreviousLetter)  (NullSpaces)* (NullSpaces)* operacao (NullSpaces) '"' (NullSpaces)* ',' (NullSpaces)* (Number | Identifier) (NullSpaces)* operacao (NullSpaces)* (Number | Identifier ) (NullSpaces)* ';';
 
 lista_parametros: Identifier | Identifier (NullSpaces)* ',' (NullSpaces)* lista_parametros;
 lines: line+
@@ -67,5 +79,3 @@ Tipo: 'void' | 'int' | 'string' | 'boolean';
 Declaracao: 'here;' ;
 NullSpaces: ' ';
 Identifier: [a-zA-Z]+[0-9]*;
-
-
