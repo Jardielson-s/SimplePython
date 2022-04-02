@@ -1,6 +1,11 @@
 # SimplePython
 Work for compilers discipline, With the use of antlr to build a simplified python language.
 
+## Tools
+* Pycharm
+* Antlr4
+* Python3
+
 ## Implemented Structures
 - [x] control command
 - [x] Types and Operators
