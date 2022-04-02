@@ -7,6 +7,7 @@ code:
     laco_repeticao
     | condicionais
     | functions
+    | variavel
     | EOF;
 
 laco_repeticao:
@@ -32,7 +33,13 @@ functions:
 
 
 operacao: 'not' | '-' | 'and' | 'or' | '+' | '-' | '+' | '*' | '/' | '=='
-          | '!=' | '>=' | '<=' | '>' | '<';
+          | '!=' | '>=' | '<=' | '>' | '<' | '=';
+
+variavel: Tipo (NullSpaces)* Identifier (NullSpaces)* ';'
+          | Tipo (NullSpaces)* Identifier (NullSpaces)* operacao (NullSpaces)* op = (Number | Identifier | NumberPreviousLetter)  (NullSpaces)* ';'
+          | Tipo (NullSpaces)* Identifier (NullSpaces)* ',' (NullSpaces)* variavel
+          | Tipo (NullSpaces)* Identifier (NullSpaces)* operacao (NullSpaces)* (Identifier | Number) (NullSpaces)* ',' variavel
+          |(NullSpaces)* ;
 
 lista_parametros: Identifier | Identifier (NullSpaces)* ',' (NullSpaces)* lista_parametros;
 lines: line+
@@ -49,15 +56,16 @@ term returns [int val]
     ;
 factor returns [int val]
     : (NullSpaces)*'(' (NullSpaces)* expr (NullSpaces)* ')'(NullSpaces)* ';' (NullSpaces)*  #ExpParenteses
-    | (NullSpaces)* NUM (NullSpaces)*           #Numero
+    | (NullSpaces)* Number (NullSpaces)*           #Numero
     ;
 
-NUM: [0-9]+ ;
+Number: [0-9]+;
+NumberPreviousLetter: [0-9]+[a-zA-Z];
 NEWLINE: '\r'?'\n' ;
 WS   : [\n\t]+ -> skip;
-Tipo: ' void' | 'int' | 'string' | 'boolean';
+Tipo: 'void' | 'int' | 'string' | 'boolean';
 Declaracao: 'here;' ;
 NullSpaces: ' ';
 Identifier: [a-zA-Z]+[0-9]*;
-Number: [0-9]+;
+
 
