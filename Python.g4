@@ -9,6 +9,7 @@ type:   'int'
     |   'float'
     |   'boolean'
     |   'string'
+    | 'void'
     ;
 
 listaIds: ID(',' ID)*
@@ -16,9 +17,9 @@ listaIds: ID(',' ID)*
 listaAtribs:  ID '=' (ID|NUM|STRING)
 
     ;
-funcDecl:   'def' type ID '(' listaParams* ')' ':'
+funcDecl:   ('def' type ID '(' listaParams* ')' ':'
                 stats+
-            '}'
+            '}')+
     ;
 mainBlock: 'main' '(' ')' ':' stats+ '}'
     ;
@@ -27,6 +28,9 @@ stats: cmdFor
     |  cmdIF
     |   cmdAtrib
     | functions_native
+    | ID ID operacao ID '(' expr ')' ';'
+    | ID (NUM | ID) ';'
+    | ID'(' ID expr ')' ';'
 ;
 stats_com_break: stats
     | 'break'';'
@@ -36,11 +40,11 @@ cmdFor: 'for' ID 'in' 'range' '(' range ')' ':' stats_com_break '}'
 ;
 cmdWhile: 'while' '(' expr ')' ':' stats_com_break '}'
     ;
-cmdIF: 'if' expr ':' stats '}' ('else' ':' stats '}')?
+cmdIF: 'if' expr ':' stats+ '}' ('else' ':' stats+ '}')?
 ;
 
 expr returns [int val]
-    : e1= expr  operacao  term ';'  #SomaSub
+    : e1= expr  operacao  term ';' #SomaSub
     |  term              #Termo
     ;
 term returns [int val]
@@ -49,7 +53,8 @@ term returns [int val]
     ;
 factor returns [int val]
     : '('  expr  ')' ';' #ExpParenteses
-    |  NUM           #Numero
+    | (ID | NUM)          #Numero
+
     ;
 
 range:
@@ -62,6 +67,7 @@ functions_native:                   ID  operacao  'input' '(' ')'  ';'
                 ;
 print: 'print'  (NUM| ID)+
        |'print' STRING ',' (NUM | ID) operacao (NUM| ID)
+       | 'print' STRING ',' (NUM | ID)
        |'print' STRING  ','  STRING
        |'print' STRING
        ;
