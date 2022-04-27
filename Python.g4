@@ -52,9 +52,8 @@ term returns [int val]
     | factor            #Fator
     ;
 factor returns [int val]
-    : '('  expr  ')' ';' #ExpParenteses
+    :   '('  expr  ')' (';')?  #ExpParenteses
     | (ID | NUM)          #Numero
-
     ;
 
 range:
