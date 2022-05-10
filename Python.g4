@@ -3,25 +3,24 @@ grammar Python;
 prog: varDecl* funcDecl mainBlock
     ;
 
-varDecl: type (listaIds | listaAtribs)';'
+varDecl returns [int val]: type (listaIds | listaAtribs)';'
     ;
-type:   'int'
+type returns [int val]:   'int'
     |   'float'
     |   'boolean'
     |   'string'
     | 'void'
     ;
 
-listaIds: ID(',' ID)*
+listaIds : ID(',' ID)*
     ;
 listaAtribs:  ID '=' (ID|NUM|STRING)
-
     ;
-funcDecl:   ('def' type ID '(' listaParams* ')' ':'
+funcDecl returns [int val]:    ('def' type ID '(' listaParams* ')' ':'
                 stats+
             '}')+
     ;
-mainBlock: 'main' '(' ')' ':' stats+ '}'
+mainBlock: 'main' '(' ')' ':' stats+  '}'
     ;
 stats: cmdFor
     | cmdWhile
@@ -34,7 +33,7 @@ stats: cmdFor
 ;
 stats_com_break: stats
     | 'break'';'
-    ;
+;
 cmdAtrib: ID '=' expr;
 cmdFor: 'for' ID 'in' 'range' '(' range ')' ':' stats_com_break '}'
 ;

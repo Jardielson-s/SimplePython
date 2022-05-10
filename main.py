@@ -5,13 +5,42 @@ from PythonLexer import PythonLexer
 from PythonParser import  PythonParser
 #from MyListener import MyListener
 from  MyListener import PythonListener
+from antlr4.error.Errors import ParseCancellationException
+from antlr4.error.ErrorListener import ErrorListener # CLASSE QUE FAZ O TRATAMENTO DE ERROS EM RELAÇÃO A NOSSA GRAMÁTICA
+
+class bcolors:
+    FAIL = '\033[91m' #RED
+
+
+
+class ThrowingErrorListener(ErrorListener):
+    def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
+        ex = ParseCancellationException(f'line {line}: {column} {msg}')
+        ex.line = line
+        ex.column = column
+        ex.msg = msg
+        print(f"{bcolors.FAIL} {ex}")
+        exit(0)
+
 
 if __name__ == '__main__':
-    print('ANTLR com Ações semantics')
+    #print('ANTLR com Ações semantics')
     fileEnterada = open("file.py", "r")
     data = fileEnterada.read()
     data = InputStream(data)
-    #data = FileStream('prog.py')
+    lexer = PythonLexer(data)
+    lexer.removeErrorListeners()
+    lexer.addErrorListener(ThrowingErrorListener())
+
+    # t = Token()
+    # tokens = CommonTokenStream(lexer)
+    # t = lexer.nextToken()
+    #
+    # while t.type != t.EOF:
+    #     #print("<" + t.text + ", " + lexer.enterprog [t.type] + ">")
+    #     t = lexer.nextToken()
+
+
 
     #Lexer
     lexer = PythonLexer(data)
@@ -27,21 +56,24 @@ if __name__ == '__main__':
     walker.walk(l, tree)
 
 
+
 """
-from  antlr4 import *
-from Expr2022Parser import  Expr2022Parser
-from Expr2022Lexer import Expr2022Lexer
-from Expr2022MyListener import Expr2022MyListener
+int numero;
+def int fatorial (int fat):
+if fat > 1:
+print fat;
+return fat * fatorial(fat - 1);
+} else:
+return 1;
+}
+}
+def void resultado (int valor):
+print "Resultado: ", valor;
+}
+main():
+ print "Fatorial de N. Digite o número?";
+ numero = input();
+ resultado (fatorial (numero));
 
-if __name__== '__main__':
-    data = FileStream('/home/jardielson/UFPI-2021.2/Compiladores/antrl/Questão/AtvAula/input.txt')
-    lexer = Expr2022Lexer(data)
-    stream = CommonTokenStream(lexer)
-
-    parser = Expr2022Parser(stream)
-    tree = parser.lines()
-
-    l = Expr2022MyListener()
-    walker = ParseTreeWalker()
-    walker.walk(l, tree)    
+}
 """

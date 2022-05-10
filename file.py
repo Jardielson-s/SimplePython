@@ -1,4 +1,4 @@
-int numero;
+int num;
 def int fatorial (int fat):
 if fat > 1:
 print fat;
@@ -7,6 +7,9 @@ return fat * fatorial(fat - 1);
 return 1;
 }
 }
+def int multdiv (int fat):
+fat =  fat / 1;
+}
 def void resultado (int valor):
 print "Resultado: ", valor;
 }
@@ -14,5 +17,4 @@ main():
  print "Fatorial de N. Digite o número?";
  numero = input();
  resultado (fatorial (numero));
-
 }

@@ -5,6 +5,9 @@ if __name__ is not None and "." in __name__:
 else:
     from PythonParser import PythonParser
 
+class bcolors:
+    FAIL = '\033[91m' #RED
+
 # This class defines a complete listener for a parse tree produced by PythonParser.
 class PythonListener(ParseTreeListener):
 
@@ -14,8 +17,8 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#prog.
     def exitProg(self, ctx:PythonParser.ProgContext):
-        print("Expressao: ", ctx.getText())
-        # print("Valor: ", ctx.va)
+        pass
+
 
 
     # Enter a parse tree produced by PythonParser#varDecl.
@@ -24,7 +27,54 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#varDecl.
     def exitVarDecl(self, ctx:PythonParser.VarDeclContext):
-        pass
+        if (len(ctx.getText().split('=')) == 1):
+            pass
+        elif PythonListener.exitType(self,ctx.type()) != None:
+            if PythonListener.exitType(self,ctx.type()) == 'int': # UM INTEIRO SÓ PODE RECEBER VALORES INTEIROS CASO NÃO CONTRÁRIO SERÁ IMPRESSO UM ERRO.
+                value = ctx.getText().split('=')
+                try:
+                   isinstance(int(value[1].split(';')[0]), int)
+                   ctx.val = value[1].split(';')[0]
+                except:
+                    return print(f"{bcolors.FAIL}ERROR: {value[0].split('int')[1]} not received {value[1].split(';')[0]}")
+            elif PythonListener.exitType(self,ctx.type()) == 'float':
+                value = ctx.getText().split('=')
+                try:
+                    ctx.val =  value[1].split(';')[0].replace('"',"")
+                except:
+                    return print(f"{bcolors.FAIL} {value[0].split('float')[1]} not received {value[1].split(';')[0]}")
+            # elif PythonListener.exitType(self,ctx.type()) == 'double':
+            #     value = ctx.getText().split('=')
+            #     try:
+            #         notFloat = isinstance(value[1].split(';')[0].replace('"', ""), str)
+            #         if notFloat:
+            #             return print(
+            #                 f"{bcolors.FAIL} Error: {value[0].split('float')[1]} not received {value[1].split(';')[0]}")
+            #         # isinstance(float(value[1].split(';')[0].replace('"',"")), float)
+            #         ctx.val = value
+            #     except:
+            #         return print(f"{bcolors.FAIL} {value[0].split('double')[1]} not received {value[1].split(';')[0]}")
+            elif PythonListener.exitType(self,ctx.type()) == 'boolean': # VERIFICA O QUE UMA VARIÁVEL BOOLEANA RECEBE SE RECEBER STRING, NÚMEROS MAIORES OU IGUAIS A ZERO E TRUE A VARIÁVEL SERÁ TRUE CASO CONTRÁRIO FALSE
+                value = ctx.getText().split('=')
+                try:
+                    valueIsInt = value[1].split(';')[0].replace('"', "")
+                    if valueIsInt == 'True' or valueIsInt >= '1':
+                       ctx.val = True
+                    elif valueIsInt == 'False' or valueIsInt <= '0':
+                       ctx.val = False
+                    else:
+                        return print(f"{bcolors.FAIL}Error:{value[0].split('boolean')[1]} not received {value[1].split(';')[0]}")
+                finally:
+                    pass
+            elif PythonListener.exitType(self,ctx.type()) == 'string':# CASO RECEBA QUALQUER  COISA COMO NÚMERO OU VALORES BOOLEANOS, TODOS SERÃO CONVERTIDOS PARA STRING
+                value = ctx.getText().split('=')
+                try:
+                    value = str(value[1].split(';')[0].replace('"', ""))
+                    ctx.val = value
+                except:
+                    return print(f"{bcolors.FAIL} {value[0].split('string')[1]} not received {value[1].split(';')[0]}")
+        else:
+            return print(f"{bcolors.FAIL}  mismatched input expecting {'int', 'float', 'boolean', 'string', 'void', 'def'}")
 
 
     # Enter a parse tree produced by PythonParser#type.
@@ -32,8 +82,8 @@ class PythonListener(ParseTreeListener):
         pass
 
     # Exit a parse tree produced by PythonParser#type.
-    def exitType(self, ctx:PythonParser.TypeContext):
-        pass
+    def exitType(self, ctx:PythonParser.TypeContext): # RETORNAR O TIPO
+        return  ctx.getText()
 
 
     # Enter a parse tree produced by PythonParser#listaIds.
@@ -42,7 +92,11 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#listaIds.
     def exitListaIds(self, ctx:PythonParser.ListaIdsContext):
-        pass
+        if PythonListener.exitType(self,ctx) != None:
+            return ctx.getText()
+        else:
+            return print(f"{bcolors.FAIL}   expecting {'int', 'float', 'boolean', 'string', 'void'}")
+
 
 
     # Enter a parse tree produced by PythonParser#listaAtribs.
@@ -51,7 +105,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#listaAtribs.
     def exitListaAtribs(self, ctx:PythonParser.ListaAtribsContext):
-        pass
+        pass#print(ctx.getText())
 
 
     # Enter a parse tree produced by PythonParser#funcDecl.
@@ -61,6 +115,8 @@ class PythonListener(ParseTreeListener):
     # Exit a parse tree produced by PythonParser#funcDecl.
     def exitFuncDecl(self, ctx:PythonParser.FuncDeclContext):
         pass
+        #PythonListener.exitType(self, ctx.type())
+        #print(PythonListener.exitType(self,ctx.type()))
 
 
     # Enter a parse tree produced by PythonParser#mainBlock.
@@ -69,7 +125,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#mainBlock.
     def exitMainBlock(self, ctx:PythonParser.MainBlockContext):
-        pass
+        return  self.visitTerminal(ctx)
 
 
     # Enter a parse tree produced by PythonParser#stats.
@@ -78,7 +134,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#stats.
     def exitStats(self, ctx:PythonParser.StatsContext):
-        pass
+        return  self.visitTerminal(ctx)
 
 
     # Enter a parse tree produced by PythonParser#stats_com_break.
@@ -87,7 +143,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#stats_com_break.
     def exitStats_com_break(self, ctx:PythonParser.Stats_com_breakContext):
-        pass
+        return  self.visitTerminal(ctx)
 
 
     # Enter a parse tree produced by PythonParser#cmdAtrib.
@@ -96,7 +152,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#cmdAtrib.
     def exitCmdAtrib(self, ctx:PythonParser.CmdAtribContext):
-        pass
+        pass#print(ctx.getText())
 
 
     # Enter a parse tree produced by PythonParser#cmdFor.
@@ -105,7 +161,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#cmdFor.
     def exitCmdFor(self, ctx:PythonParser.CmdForContext):
-        pass
+        return  self.visitTerminal(ctx)
 
 
     # Enter a parse tree produced by PythonParser#cmdWhile.
@@ -123,7 +179,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#cmdIF.
     def exitCmdIF(self, ctx:PythonParser.CmdIFContext):
-        pass
+        return  self.visitTerminal(ctx)
 
 
     # Enter a parse tree produced by PythonParser#Termo.
@@ -132,7 +188,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#Termo.
     def exitTermo(self, ctx:PythonParser.TermoContext):
-        pass
+        return  self.visitTerminal(ctx)
 
 
     # Enter a parse tree produced by PythonParser#SomaSub.
@@ -141,10 +197,14 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#SomaSub.
     def exitSomaSub(self, ctx:PythonParser.SomaSubContext):
-        if ctx.op.text == '+':
-            ctx.val = ctx.e1.val + ctx.term().val
-        else:
-            ctx.val = ctx.e1.val - ctx.term().val
+       # print(ctx.t1.val)
+        pass
+        #print(ctx.)
+        #ctx.val = ctx.e1.val + ctx.term().val
+        # if ctx.op.text == '+':
+        #     ctx.val = ctx.e1.val + ctx.term().val
+        # else:
+        #     ctx.val = ctx.e1.val - ctx.term().val
 
 
     # Enter a parse tree produced by PythonParser#Fator.
@@ -153,7 +213,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#Fator.
     def exitFator(self, ctx:PythonParser.FatorContext):
-        ctx.val = ctx.factor().val
+        return  self.visitTerminal(ctx)
 
 
     # Enter a parse tree produced by PythonParser#DIVMult.
@@ -162,7 +222,14 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#DIVMult.
     def exitDIVMult(self, ctx:PythonParser.DIVMultContext):
-        pass
+        return  self.visitTerminal(ctx)
+        # if ctx.val == '*':
+        #      ctx.val = ctx.t1.val * ctx.term().val
+        # elif ctx.val == '/':
+        #     ctx.val = ctx.t1.val / ctx.term().val
+        # elif ctx.val == '>':
+        #     print(ctx.val)
+
 
 
     # Enter a parse tree produced by PythonParser#ExpParenteses.
@@ -171,7 +238,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#ExpParenteses.
     def exitExpParenteses(self, ctx:PythonParser.ExpParentesesContext):
-        ctx.val = ctx.expr().val
+        return  self.visitTerminal(ctx)
 
 
     # Enter a parse tree produced by PythonParser#Numero.
@@ -180,7 +247,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#Numero.
     def exitNumero(self, ctx:PythonParser.NumeroContext):
-        ctx.val = ctx.getText()#.NUM().getText())
+        return  self.visitTerminal(ctx)
 
 
     # Enter a parse tree produced by PythonParser#range.
@@ -189,8 +256,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#range.
     def exitRange(self, ctx:PythonParser.RangeContext):
-        pass
-
+        return  self.visitTerminal(ctx)
 
     # Enter a parse tree produced by PythonParser#listaParams.
     def enterListaParams(self, ctx:PythonParser.ListaParamsContext):
@@ -198,7 +264,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#listaParams.
     def exitListaParams(self, ctx:PythonParser.ListaParamsContext):
-        pass
+        return  self.visitTerminal(ctx)
 
 
     # Enter a parse tree produced by PythonParser#functions_native.
@@ -207,7 +273,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#functions_native.
     def exitFunctions_native(self, ctx:PythonParser.Functions_nativeContext):
-        pass
+        return  self.visitTerminal(ctx)
 
 
     # Enter a parse tree produced by PythonParser#print.
@@ -216,7 +282,7 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#print.
     def exitPrint(self, ctx:PythonParser.PrintContext):
-        pass
+        return  self.visitTerminal(ctx)
 
 
     # Enter a parse tree produced by PythonParser#operacao.
@@ -225,6 +291,6 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#operacao.
     def exitOperacao(self, ctx:PythonParser.OperacaoContext):
-        pass
+        return  self.visitTerminal(ctx)
 
 

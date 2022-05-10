@@ -248,10 +248,11 @@ class PythonParser ( Parser ):
 
 
         def varDecl(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(PythonParser.VarDeclContext)
-            else:
-                return self.getTypedRuleContext(PythonParser.VarDeclContext,i)
+           pass # return self.getTypedRuleContexts(PythonParser.VarDeclContext, 0)
+            # # if i is None:
+            # #     return self.getTypedRuleContexts(PythonParser.VarDeclContext)
+            # # else:
+            # #     return self.getTypedRuleContext(PythonParser.VarDeclContext,i)
 
 
         def getRuleIndex(self):
@@ -302,6 +303,7 @@ class PythonParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.val = None
 
         def type(self):
             return self.getTypedRuleContext(PythonParser.TypeContext,0)
@@ -366,6 +368,7 @@ class PythonParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.val = None
 
 
         def getRuleIndex(self):
@@ -522,6 +525,7 @@ class PythonParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+            self.val = None
 
         def type(self, i:int=None):
             if i is None:
