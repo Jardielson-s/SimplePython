@@ -17,6 +17,15 @@ class PythonListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by PythonParser#listaDecVars.
+    def enterListaDecVars(self, ctx:PythonParser.ListaDecVarsContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#listaDecVars.
+    def exitListaDecVars(self, ctx:PythonParser.ListaDecVarsContext):
+        pass
+
+
     # Enter a parse tree produced by PythonParser#varDecl.
     def enterVarDecl(self, ctx:PythonParser.VarDeclContext):
         pass
@@ -26,12 +35,30 @@ class PythonListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by PythonParser#type.
-    def enterType(self, ctx:PythonParser.TypeContext):
+    # Enter a parse tree produced by PythonParser#decVars.
+    def enterDecVars(self, ctx:PythonParser.DecVarsContext):
         pass
 
-    # Exit a parse tree produced by PythonParser#type.
-    def exitType(self, ctx:PythonParser.TypeContext):
+    # Exit a parse tree produced by PythonParser#decVars.
+    def exitDecVars(self, ctx:PythonParser.DecVarsContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#decParam.
+    def enterDecParam(self, ctx:PythonParser.DecParamContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#decParam.
+    def exitDecParam(self, ctx:PythonParser.DecParamContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#tipo.
+    def enterTipo(self, ctx:PythonParser.TipoContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#tipo.
+    def exitTipo(self, ctx:PythonParser.TipoContext):
         pass
 
 
@@ -44,12 +71,30 @@ class PythonListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by PythonParser#atrib.
+    def enterAtrib(self, ctx:PythonParser.AtribContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#atrib.
+    def exitAtrib(self, ctx:PythonParser.AtribContext):
+        pass
+
+
     # Enter a parse tree produced by PythonParser#listaAtribs.
     def enterListaAtribs(self, ctx:PythonParser.ListaAtribsContext):
         pass
 
     # Exit a parse tree produced by PythonParser#listaAtribs.
     def exitListaAtribs(self, ctx:PythonParser.ListaAtribsContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#typeFunc.
+    def enterTypeFunc(self, ctx:PythonParser.TypeFuncContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#typeFunc.
+    def exitTypeFunc(self, ctx:PythonParser.TypeFuncContext):
         pass
 
 
@@ -71,12 +116,21 @@ class PythonListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by PythonParser#stats.
-    def enterStats(self, ctx:PythonParser.StatsContext):
+    # Enter a parse tree produced by PythonParser#returnFunc.
+    def enterReturnFunc(self, ctx:PythonParser.ReturnFuncContext):
         pass
 
-    # Exit a parse tree produced by PythonParser#stats.
-    def exitStats(self, ctx:PythonParser.StatsContext):
+    # Exit a parse tree produced by PythonParser#returnFunc.
+    def exitReturnFunc(self, ctx:PythonParser.ReturnFuncContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#stmts.
+    def enterStmts(self, ctx:PythonParser.StmtsContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#stmts.
+    def exitStmts(self, ctx:PythonParser.StmtsContext):
         pass
 
 
@@ -89,6 +143,24 @@ class PythonListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by PythonParser#stmts_break.
+    def enterStmts_break(self, ctx:PythonParser.Stmts_breakContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#stmts_break.
+    def exitStmts_break(self, ctx:PythonParser.Stmts_breakContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#callFunction.
+    def enterCallFunction(self, ctx:PythonParser.CallFunctionContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#callFunction.
+    def exitCallFunction(self, ctx:PythonParser.CallFunctionContext):
+        pass
+
+
     # Enter a parse tree produced by PythonParser#cmdAtrib.
     def enterCmdAtrib(self, ctx:PythonParser.CmdAtribContext):
         pass
@@ -98,48 +170,201 @@ class PythonListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by PythonParser#cmdFor.
-    def enterCmdFor(self, ctx:PythonParser.CmdForContext):
+    # Enter a parse tree produced by PythonParser#ForCond.
+    def enterForCond(self, ctx:PythonParser.ForCondContext):
         pass
 
-    # Exit a parse tree produced by PythonParser#cmdFor.
-    def exitCmdFor(self, ctx:PythonParser.CmdForContext):
-        pass
-
-
-    # Enter a parse tree produced by PythonParser#cmdWhile.
-    def enterCmdWhile(self, ctx:PythonParser.CmdWhileContext):
-        pass
-
-    # Exit a parse tree produced by PythonParser#cmdWhile.
-    def exitCmdWhile(self, ctx:PythonParser.CmdWhileContext):
+    # Exit a parse tree produced by PythonParser#ForCond.
+    def exitForCond(self, ctx:PythonParser.ForCondContext):
         pass
 
 
-    # Enter a parse tree produced by PythonParser#cmdIF.
-    def enterCmdIF(self, ctx:PythonParser.CmdIFContext):
+    # Enter a parse tree produced by PythonParser#WhileCond.
+    def enterWhileCond(self, ctx:PythonParser.WhileCondContext):
         pass
 
-    # Exit a parse tree produced by PythonParser#cmdIF.
-    def exitCmdIF(self, ctx:PythonParser.CmdIFContext):
-        pass
-
-
-    # Enter a parse tree produced by PythonParser#Termo.
-    def enterTermo(self, ctx:PythonParser.TermoContext):
-        pass
-
-    # Exit a parse tree produced by PythonParser#Termo.
-    def exitTermo(self, ctx:PythonParser.TermoContext):
+    # Exit a parse tree produced by PythonParser#WhileCond.
+    def exitWhileCond(self, ctx:PythonParser.WhileCondContext):
         pass
 
 
-    # Enter a parse tree produced by PythonParser#SomaSub.
-    def enterSomaSub(self, ctx:PythonParser.SomaSubContext):
+    # Enter a parse tree produced by PythonParser#printFunc.
+    def enterPrintFunc(self, ctx:PythonParser.PrintFuncContext):
         pass
 
-    # Exit a parse tree produced by PythonParser#SomaSub.
-    def exitSomaSub(self, ctx:PythonParser.SomaSubContext):
+    # Exit a parse tree produced by PythonParser#printFunc.
+    def exitPrintFunc(self, ctx:PythonParser.PrintFuncContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#inputFunc.
+    def enterInputFunc(self, ctx:PythonParser.InputFuncContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#inputFunc.
+    def exitInputFunc(self, ctx:PythonParser.InputFuncContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#IfCond.
+    def enterIfCond(self, ctx:PythonParser.IfCondContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#IfCond.
+    def exitIfCond(self, ctx:PythonParser.IfCondContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#IfBreakCond.
+    def enterIfBreakCond(self, ctx:PythonParser.IfBreakCondContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#IfBreakCond.
+    def exitIfBreakCond(self, ctx:PythonParser.IfBreakCondContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#BoolTFExpr.
+    def enterBoolTFExpr(self, ctx:PythonParser.BoolTFExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#BoolTFExpr.
+    def exitBoolTFExpr(self, ctx:PythonParser.BoolTFExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#StringExpr.
+    def enterStringExpr(self, ctx:PythonParser.StringExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#StringExpr.
+    def exitStringExpr(self, ctx:PythonParser.StringExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#BoolExpr.
+    def enterBoolExpr(self, ctx:PythonParser.BoolExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#BoolExpr.
+    def exitBoolExpr(self, ctx:PythonParser.BoolExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#FloatExpr.
+    def enterFloatExpr(self, ctx:PythonParser.FloatExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#FloatExpr.
+    def exitFloatExpr(self, ctx:PythonParser.FloatExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#IdExpr.
+    def enterIdExpr(self, ctx:PythonParser.IdExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#IdExpr.
+    def exitIdExpr(self, ctx:PythonParser.IdExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#CompExpr.
+    def enterCompExpr(self, ctx:PythonParser.CompExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#CompExpr.
+    def exitCompExpr(self, ctx:PythonParser.CompExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#CompAllExpr.
+    def enterCompAllExpr(self, ctx:PythonParser.CompAllExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#CompAllExpr.
+    def exitCompAllExpr(self, ctx:PythonParser.CompAllExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#NegateExpr.
+    def enterNegateExpr(self, ctx:PythonParser.NegateExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#NegateExpr.
+    def exitNegateExpr(self, ctx:PythonParser.NegateExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#AssignExpr.
+    def enterAssignExpr(self, ctx:PythonParser.AssignExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#AssignExpr.
+    def exitAssignExpr(self, ctx:PythonParser.AssignExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#IntegerExpr.
+    def enterIntegerExpr(self, ctx:PythonParser.IntegerExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#IntegerExpr.
+    def exitIntegerExpr(self, ctx:PythonParser.IntegerExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#MulDivExpr.
+    def enterMulDivExpr(self, ctx:PythonParser.MulDivExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#MulDivExpr.
+    def exitMulDivExpr(self, ctx:PythonParser.MulDivExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#PlusExpr.
+    def enterPlusExpr(self, ctx:PythonParser.PlusExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#PlusExpr.
+    def exitPlusExpr(self, ctx:PythonParser.PlusExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#ParensExpr.
+    def enterParensExpr(self, ctx:PythonParser.ParensExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#ParensExpr.
+    def exitParensExpr(self, ctx:PythonParser.ParensExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#CallExpr.
+    def enterCallExpr(self, ctx:PythonParser.CallExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#CallExpr.
+    def exitCallExpr(self, ctx:PythonParser.CallExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#AddSubExpr.
+    def enterAddSubExpr(self, ctx:PythonParser.AddSubExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#AddSubExpr.
+    def exitAddSubExpr(self, ctx:PythonParser.AddSubExprContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#MinusExpr.
+    def enterMinusExpr(self, ctx:PythonParser.MinusExprContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#MinusExpr.
+    def exitMinusExpr(self, ctx:PythonParser.MinusExprContext):
         pass
 
 
@@ -179,15 +404,6 @@ class PythonListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by PythonParser#range.
-    def enterRange(self, ctx:PythonParser.RangeContext):
-        pass
-
-    # Exit a parse tree produced by PythonParser#range.
-    def exitRange(self, ctx:PythonParser.RangeContext):
-        pass
-
-
     # Enter a parse tree produced by PythonParser#listaParams.
     def enterListaParams(self, ctx:PythonParser.ListaParamsContext):
         pass
@@ -203,15 +419,6 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#functions_native.
     def exitFunctions_native(self, ctx:PythonParser.Functions_nativeContext):
-        pass
-
-
-    # Enter a parse tree produced by PythonParser#print.
-    def enterPrint(self, ctx:PythonParser.PrintContext):
-        pass
-
-    # Exit a parse tree produced by PythonParser#print.
-    def exitPrint(self, ctx:PythonParser.PrintContext):
         pass
 
 
